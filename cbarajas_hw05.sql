@@ -42,7 +42,17 @@ FROM book
     INNER JOIN borrower ON borrower.borrowerno = bookloan.borrowerno
 WHERE borrowername = 'Peter Bloomfield';
 --6.52
+SELECT borrowername, title
+FROM bookcopy
+    INNER JOIN book ON bookcopy.ISBN = book.ISBN
+    INNER JOIN bookloan ON bookcopy.copyno = bookloan.copyno
+    INNER JOIN borrower ON bookloan.borrowerno = borrower.borrowerno
+WHERE ______
 --6.53
+SELECT borrowerno, borrowername, borroweraddress
+FROM  bookloan
+    INNER JOIN borrower ON bookloan.borrowerno = borrower.borrowerno
+WHERE date(datedue) < date('now')
 --6.54
 SELECT title, COUNT(bookloan.copyno) AS 'number borrowed'
 FROM book
