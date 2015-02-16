@@ -16,7 +16,7 @@ WHERE title = 'Lord of the Rings';
 SELECT DISTINCT borrowername
     FROM bookloan
         INNER JOIN borrower ON bookloan.borrowerno = borrower.borrowerno
-WHERE date(datedue) < date('now')
+WHERE date(datedue) < date('now');
 --6.48
 SELECT count(ISBN)
     FROM bookcopy
