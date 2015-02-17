@@ -57,7 +57,7 @@ FROM book
         INNER JOIN  book ON bookcopy.ISBN = book.ISBN
         GROUP BY title
         HAVING copies > 2
-    ) as booktotals ON book.title = booktotals.title
+    ) AS booktotals ON book.title = booktotals.title
     INNER JOIN borrower ON bookloan.borrowerno = borrower.borrowerno
 
 --6.53
