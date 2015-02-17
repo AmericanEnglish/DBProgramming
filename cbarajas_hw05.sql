@@ -60,8 +60,6 @@ FROM book
     ) as booktotals ON book.title = booktotals.title
     INNER JOIN borrower ON bookloan.borrowerno = borrower.borrowerno
 
-    
-
 --6.53
 SELECT borrowerno, borrowername, borroweraddress
 FROM  bookloan
