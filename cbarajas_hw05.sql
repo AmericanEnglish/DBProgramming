@@ -58,13 +58,13 @@ FROM book
         GROUP BY title
         HAVING copies > 2
     ) AS booktotals ON book.title = booktotals.title
-    INNER JOIN borrower ON bookloan.borrowerno = borrower.borrowerno
+    INNER JOIN borrower ON bookloan.borrowerno = borrower.borrowerno;
 
 --6.53
 SELECT borrowerno, borrowername, borroweraddress
 FROM  bookloan
     INNER JOIN borrower ON bookloan.borrowerno = borrower.borrowerno
-WHERE date(datedue) < date('now')
+WHERE date(datedue) < date('now');
 
 --6.54
 SELECT title, COUNT(bookloan.copyno) AS 'number borrowed'
