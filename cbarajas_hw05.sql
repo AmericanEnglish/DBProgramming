@@ -46,14 +46,21 @@ FROM book
 WHERE borrowername = 'Peter Bloomfield';
 
 --6.52
-SELECT borrowername, title
-FROM
-    (SELECT title, COUNT(bookcopy.copyno) as copies
+SELECT borrowername, book.title
+FROM book
+    INNER JOIN bookcopy ON book.ISBN = bookcopy.ISBN
+    INNER JOIN bookloan ON bookcopy.copyno = bookloan.copyno
+    INNER JOIN
+    (
+    SELECT title, COUNT(bookcopy.copyno) as copies
     FROM bookcopy
         INNER JOIN  book ON bookcopy.ISBN = book.ISBN
-    WHERE copies > 2) as booktotals
-    INNER JOIN bookcopy on booktotals.ISBN = bookcopy.ISBN
+        GROUP BY title
+        HAVING copies > 2
+    ) as booktotals ON book.title = booktotals.title
+    INNER JOIN borrower ON bookloan.borrowerno = borrower.borrowerno
 
+    
 
 --6.53
 SELECT borrowerno, borrowername, borroweraddress
