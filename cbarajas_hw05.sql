@@ -23,21 +23,18 @@ WHERE date(datedue) < date('now');
 --6.48
 SELECT count(ISBN)
     FROM bookcopy
-    GROUP BY  ISBN
     HAVING ISBN = '0-321-52306-7';
 
 --6.49
 SELECT count(bookcopy.ISBN) - count(bookloan.dateout) AS 'remaining'
 FROM bookcopy
     LEFT JOIN  bookloan ON bookcopy.copyno = bookloan.copyno
-    GROUP BY bookcopy.ISBN
     HAVING ISBN = '0-321-52306-7';
 
 --6.50
 SELECT COUNT(ISBN)
 FROM  bookcopy
     INNER JOIN bookloan ON bookcopy.copyno = bookloan.copyno
-    GROUP BY ISBN
     HAVING ISBN = '0-321-52306-7';
 
 --6.51
@@ -50,11 +47,13 @@ WHERE borrowername = 'Peter Bloomfield';
 
 --6.52
 SELECT borrowername, title
-FROM bookcopy
-    INNER JOIN book ON bookcopy.ISBN = book.ISBN
-    INNER JOIN bookloan ON bookcopy.copyno = bookloan.copyno
-    INNER JOIN borrower ON bookloan.borrowerno = borrower.borrowerno
-WHERE ______
+FROM
+    (SELECT title, COUNT(bookcopy.copyno) as copies
+    FROM bookcopy
+        INNER JOIN  book ON bookcopy.ISBN = book.ISBN
+    WHERE copies > 2) as booktotals
+    INNER JOIN bookcopy on booktotals.ISBN = bookcopy.ISBN
+
 
 --6.53
 SELECT borrowerno, borrowername, borroweraddress
