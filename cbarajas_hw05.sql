@@ -23,19 +23,19 @@ WHERE date(datedue) < date('now');
 --6.48
 SELECT count(ISBN)
     FROM bookcopy
-    HAVING ISBN = '0-321-52306-7';
+WHERE ISBN = '0-321-52306-7';
 
 --6.49
 SELECT count(bookcopy.ISBN) - count(bookloan.dateout) AS 'remaining'
 FROM bookcopy
     LEFT JOIN  bookloan ON bookcopy.copyno = bookloan.copyno
-    HAVING ISBN = '0-321-52306-7';
+WHERE ISBN = '0-321-52306-7';
 
 --6.50
 SELECT COUNT(ISBN)
 FROM  bookcopy
     INNER JOIN bookloan ON bookcopy.copyno = bookloan.copyno
-    HAVING ISBN = '0-321-52306-7';
+WHERE ISBN = '0-321-52306-7';
 
 --6.51
 SELECT title, bookcopy.ISBN, bookcopy.copyno
