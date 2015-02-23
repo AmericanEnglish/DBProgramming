@@ -83,7 +83,7 @@ ALTER TABLE "Hotel Database"."Archive"
 CREATE VIEW "PresentGuests" 
     AS SELECT "hotelName", "guestName" FROM "Hote Database"."Booking"
         INNER JOIN "Hotel Database"."Guest" ON "Booking"."guestNo" = "Guest"."guestNo"
-        INNER JOIN "Hotel Database"."Hotel" ON "Booking"."hotelNo" = "Hotel"."hotelNo"
+        INNER JOIN "Hotel Database"."Hotel" ON "Booking"."hotelNo" = "Hotel"."hotelNo";
 
 -- 7.14
 
