@@ -55,14 +55,14 @@ CREATE TABLE booking
 
 
 -- 7.12 (include your INSERT/DELETE statements)
-CREATE TABLE booking
+CREATE TABLE archive
 (
     hotelNo INTEGER NOT NULL,
     guestNo INTEGER NOT NULL,
     dateFrom DATE NOT NULL,
     dateTo DATE,
     roomNo INTEGER,
-    CHECK (dateTo > DATE('today') AND dateFrom > DATE('today'))
+    PRIMARY KEY (hotelNo, guestNo, dateFrom)
 );
 
 -- 7.13
