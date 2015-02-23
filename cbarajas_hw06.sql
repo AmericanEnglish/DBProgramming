@@ -4,7 +4,7 @@ CREATE TABLE hotel
     hotelNo INTEGER NOT NULL PRIMARY KEY,
     hotelName VARCHAR(10), -- Name for the name of the hotels
     city VARCHAR(10) -- Tells which city the hotel is in
-)
+);
 
 -- 7.11 (2 points)
 
@@ -38,7 +38,7 @@ CREATE TABLE booking
     dateFrom DATE NOT NULL,
     dateTo DATE,
     roomNo INTEGER,
-    PRIMARY KEY (hotelNo, guestNo, dateFrom)
+    PRIMARY KEY (hotelNo, guestNo, dateFrom),
     FOREIGN KEY (hotelNo, roomNo)
         REFERENCES room (hotelNo, roomNo),
     FOREIGN KEY (guestNo)
