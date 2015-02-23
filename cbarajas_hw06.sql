@@ -37,11 +37,11 @@ ALTER TABLE "Hotel Database"."Room"
 
 CREATE TABLE "Hotel Database"."Booking"
 (
-    "hotelNo" integer NOT NULL
-    "guestNo" integer NOT NULL
-    "dateFrom" date NOT NULL
-    "dateTo" date
-    "roomNo" integer
+    "hotelNo" integer NOT NULL,
+    "guestNo" integer NOT NULL,
+    "dateFrom" date NOT NULL,
+    "dateTo" date,
+    "roomNo" integer,
     CONSTRAINT "Booking P Key" PRIMARY KEY ("hotelNo", "guestNo", "dateTo"),
     CONSTRAINT "Booking F Key" FOREIGN KEY ("hotelNo", "roomNo")
         REFERENCES "Hotel Database"."Room" ("hotelNo", "roomNo")
