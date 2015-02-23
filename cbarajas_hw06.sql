@@ -64,7 +64,13 @@ CREATE TABLE archive
     roomNo INTEGER,
     PRIMARY KEY (hotelNo, guestNo, dateFrom)
 );
-
+INSERT INTO archive 
+(
+	SELECT hotelNo, guestNo, dateFrom, dateTo 
+	FROM booking
+	WHERE dateFrom < 'Jan-01-2013'
+);
+DELETE hotelNo, guestNo, dateFrom, dateTo
 -- 7.13
 CREATE VIEW PresentGuests
     AS SELECT hotelName, guestName FROM booking
