@@ -1,9 +1,9 @@
 -- 7.10
-CREATE TABLE "hotel"
+CREATE TABLE hotel
 (
-    "hotelNo" INTEGER NOT NULL PRIMARY KEY,
-    "hotelName" VARCHAR(10), -- Name for the name of the hotels
-    "city" VARCHAR(10) -- Tells which city the hotel is in
+    hotelNo INTEGER NOT NULL PRIMARY KEY,
+    hotelName VARCHAR(10), -- Name for the name of the hotels
+    city VARCHAR(10) -- Tells which city the hotel is in
 )
 
 -- 7.11 (2 points)
