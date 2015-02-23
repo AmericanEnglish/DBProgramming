@@ -8,7 +8,7 @@ CREATE TABLE "hotel"
 
 -- 7.11 (2 points)
 
-CREATE TABLE "room"
+CREATE TABLE room
 (
     roomNo INTEGER NOT NULL,
     hotelNo INTEGER NOT NULL,
@@ -23,29 +23,26 @@ CREATE TABLE "room"
         ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
-CREATE TABLE "guest"
+CREATE TABLE guest
 (
 	guestNo INTEGER,
 	guestName VARCHAR(50),
 	guestAddress VARCHAR(50),
 	PRIMARY KEY (guestNo)
-)
+);
 
-CREATE TABLE "Booking"
+CREATE TABLE booking
 (
-    "hotelNo" INTEGER NOT NULL,
-    "guestNo" INTEGER NOT NULL,
-    "dateFrom" DATE NOT NULL,
-    "dateTo" DATE,
-    "roomNo" INTEGER,
-    FOREIGN KEY ("hotelNo", "roomNo")
-        REFERENCES "Room" ("hotelNo", "roomNo")
-        ON UPDATE NO ACTION ON DELETE NO ACTION,
-    FOREIGN KEY ("guestNo")
-        REFERENCES  "Guest" ("guestNo")
-        ON UPDATE NO ACTION ON DELETE NO ACTION,
-    CHECK ("dateTo" > date('today') AND "dateFrom" > date('today')),
-    -- CONSTRAINT "No double Booking" CHECK ()
+    hotelNo INTEGER NOT NULL,
+    guestNo INTEGER NOT NULL,
+    dateFrom DATE NOT NULL,
+    dateTo DATE,
+    roomNo INTEGER,
+    FOREIGN KEY (hotelNo, roomNo)
+        REFERENCES room (hotelNo, roomNo),
+    FOREIGN KEY (guestNo)
+        REFERENCES  guest (guestNo),
+    CHECK (dateTo > DATE('today') AND dateFrom > DATE('today'))
 );
 -- 7.12 (include your INSERT/DELETE statements)
 

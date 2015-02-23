@@ -1,3 +1,7 @@
+INSERT INTO hotel VALUES
+(1, 'Hotel 1', 'London'),
+(2, 'Hotel 2', 'Paris');
+
 INSERT INTO "Booking" VALUES
 (1, 1, 'Jan-08-2014', 'Jan-20-2014', 1),
 (1, 2, 'Jan-08-2014', 'Jan-20-2014', 2),
