@@ -10,61 +10,46 @@ CREATE TABLE "hotel"
 
 CREATE TABLE "room"
 (
-    "roomNo" INTEGER NOT NULL PRIMARY KEY,
-    "hotelNo" INTEGER NOT NULL PRIMARY KEY,
-    "type" CHAR(6),
-    "price" MONEY,
-    CONSTRAINT "roomNo limits" CHECK ("roomNo" > 0 AND "roomNo" < 101),
-    CONSTRAINT "type can be 1 of 3" CHECK ("type" = 'Single' OR "type" = 'Double' OR "type" = 'Family'),
-    CONSTRAINT "Price range" CHECK (price > MONEY(10) AND price < MONEY(100)),
-    CONSTRAINT "Room F Key" FOREIGN KEY ("hotelNo")
-        REFERENCES "Hotel" ("hotelNo")
+    roomNo INTEGER NOT NULL,
+    hotelNo INTEGER NOT NULL,
+    type CHAR(6),
+    price MONEY,
+    CHECK (roomNo > 0 AND roomNo < 101),
+    CHECK (type = 'Single' OR type = 'Double' OR type = 'Family'),
+    CHECK (price >= MONEY(10) AND price <= MONEY(100)),
+    PRIMARY KEY (roomNo, hotelNo),
+    FOREIGN KEY (hotelNo)
+        REFERENCES hotel (hotelNo)
         ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+CREATE TABLE "guest"
+(
+	guestNo INTEGER,
+	guestName VARCHAR(50),
+	guestAddress VARCHAR(50),
+	PRIMARY KEY (guestNo)
+)
 
 CREATE TABLE "Booking"
 (
     "hotelNo" INTEGER NOT NULL,
     "guestNo" INTEGER NOT NULL,
-    "dateFrom" date NOT NULL,
-    "dateTo" date,
+    "dateFrom" DATE NOT NULL,
+    "dateTo" DATE,
     "roomNo" INTEGER,
-    CONSTRAINT "Booking P Key" PRIMARY KEY ("hotelNo", "guestNo", "dateTo"),
-    CONSTRAINT "Booking F Key" FOREIGN KEY ("hotelNo", "roomNo")
+    FOREIGN KEY ("hotelNo", "roomNo")
         REFERENCES "Room" ("hotelNo", "roomNo")
         ON UPDATE NO ACTION ON DELETE NO ACTION,
-    CONSTRAINT "Booking F Key guestNo" FOREIGN KEY ("guestNo")
+    FOREIGN KEY ("guestNo")
         REFERENCES  "Guest" ("guestNo")
         ON UPDATE NO ACTION ON DELETE NO ACTION,
-    CONSTRAINT "Date validity" CHECK ("dateTo" > date('today') AND "dateFrom" > date('today')),
+    CHECK ("dateTo" > date('today') AND "dateFrom" > date('today')),
     -- CONSTRAINT "No double Booking" CHECK ()
-)
-WITH (
-  OIDS=FALSE
 );
-ALTER TABLE "Booking"
-    OWNER TO postgres;
 -- 7.12 (include your INSERT/DELETE statements)
 
-CREATE TABLE "Archive"
-(
-    "hotelNo" INTEGER NOT NULL
-    "guestNo" INTEGER NOT NULL
-    "dateFrom" date NOT NULL
-    "dateTo" date 
-    "roomNo" INTEGER 
-    CONSTRAINT "Archive P Keys" PRIMARY KEY ("hotelNo", "guestNo", "dateFrom")
-    CONSTRAINT "Archive F Keys" FOREIGN KEY ("roomNo", "hotelNo")
-        REFERENCES "Room" ("roomNo", "hotelNo")
-        ON UPDATE NO ACTION ON DELETE NO ACTION
-    CONSTRAINT "Archive Guest Number" FOREIGN KEY ("guestNo")
-        REFERENCES "Guest" ("guestNo")
-        ON UPDATE NO ACTION ON DELETE NO ACTION
 
-);
-  OIDS=FALSE
-);
-ALTER TABLE "Archive"
-    OWNER TO postgres;
 -- 7.13
 CREATE VIEW "PresentGuests" 
     AS SELECT "hotelName", "guestName" FROM"Booking"
