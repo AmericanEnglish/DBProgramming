@@ -2,15 +2,15 @@ INSERT INTO hotel VALUES
 (1, 'Hotel 1', 'London'),
 (2, 'Hotel 2', 'Paris');
 
-INSERT INTO "Booking" VALUES
-(1, 1, 'Jan-08-2014', 'Jan-20-2014', 1),
-(1, 2, 'Jan-08-2014', 'Jan-20-2014', 2),
-(1, 3, 'Jan-08-2014', 'Jan-20-2014', 3),
-(2, 4, 'Jan-08-2014', 'Jan-20-2014', 1),
-(2, 5, 'Jan-08-2014', 'Jan-20-2014', 2),
-(2, 6, 'Jan-08-2014', 'Jan-20-2014', 3);
+INSERT INTO booking VALUES
+(1, 1, 'Dec-08-2015', 'Dec-20-2015', 1),
+(1, 2, 'Dec-08-2015', 'Dec-20-2015', 2),
+(1, 3, 'Dec-08-2015', 'Dec-20-2015', 3),
+(2, 4, 'Dec-08-2015', 'Dec-20-2015', 1),
+(2, 5, 'Dec-08-2015', 'Dec-20-2015', 2),
+(2, 6, 'Dec-08-2015', 'Dec-20-2015', 3);
 --Random Guests
-INSERT INTO "Guest" VALUES
+INSERT INTO guest VALUES
 (1, 'Guest A', 'Address 1'),
 (2, 'Guest B', 'Address 2'),
 (3, 'Guest C', 'Address 3'),
@@ -18,7 +18,7 @@ INSERT INTO "Guest" VALUES
 (5, 'Guest E', 'Address 5'),
 (6, 'Guest F', 'Address 6');
 
-INSERT INTO "Room" VALUES
+INSERT INTO room VALUES
 (1, 1, 'Single', 20),
 (2, 1, 'Double', 30),
 (3, 1, 'Family', 50),

@@ -38,20 +38,38 @@ CREATE TABLE booking
     dateFrom DATE NOT NULL,
     dateTo DATE,
     roomNo INTEGER,
+    PRIMARY KEY (hotelNo, guestNo, dateFrom)
     FOREIGN KEY (hotelNo, roomNo)
         REFERENCES room (hotelNo, roomNo),
     FOREIGN KEY (guestNo)
         REFERENCES  guest (guestNo),
     CHECK (dateTo > DATE('today') AND dateFrom > DATE('today'))
 );
--- 7.12 (include your INSERT/DELETE statements)
+-- SELECT *
+-- FROM "Booking"
+-- WHERE roomno = 1 AND hotelno = 1 
+-- AND
+-- (('Dec-10-2015'BETWEEN datefrom AND dateto)
+-- OR
+-- ('Dec-1-2015' BETWEEN datefrom AND dateto));
 
+
+-- 7.12 (include your INSERT/DELETE statements)
+CREATE TABLE booking
+(
+    hotelNo INTEGER NOT NULL,
+    guestNo INTEGER NOT NULL,
+    dateFrom DATE NOT NULL,
+    dateTo DATE,
+    roomNo INTEGER,
+    CHECK (dateTo > DATE('today') AND dateFrom > DATE('today'))
+);
 
 -- 7.13
-CREATE VIEW "PresentGuests" 
-    AS SELECT "hotelName", "guestName" FROM"Booking"
-        INNER JOIN "Guest" ON "Booking"."guestNo" = "Guest"."guestNo"
-        INNER JOIN "Hotel" ON "Booking"."hotelNo" = "Hotel"."hotelNo";
+CREATE VIEW PresentGuests
+    AS SELECT hotelName, guestName FROM booking
+        INNER JOIN guest ON booking.guestNo = guest.guestNo
+        INNER JOIN hotel ON booking.hotelNo = hotel.hotelNo;
 
 -- 7.14
 
