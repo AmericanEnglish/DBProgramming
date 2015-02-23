@@ -14,7 +14,25 @@ ALTER TABLE "Hotel Database"."Hotel"
 
 -- 7.11 (2 points)
 
-
+CREATE TABLE "Hotel Database"."Room"
+(
+    "roomNo" integer NOT NULL,
+    "hotelNo" integer NOT NULL,
+    "type" character(6),
+    "price" money,
+    CONSTRAINT "roomNo limits" CHECK ("roomNo" > 0 AND "roomNo" < 101),
+    CONSTRAINT "type can be 1 of 3" CHECK ("type" = 'Single' OR "type" = 'Double' OR "type" = 'Family'),
+    CONSTRAINT "Price range" CHECK (price > money(10) AND price < money(100)),
+    CONSTRAINT "Room P Key" PRIMARY KEY ("roomNo", "hotelNo"),
+    CONSTRAINT "Room F Key" FOREIGN KEY ("hotelNo")
+        REFERENCES "Hotel Database"."Hotel" ("hotelNo")
+        ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE "Hotel Database"."Room"
+    OWNER TO postgres;
 -- 7.12 (include your INSERT/DELETE statements)
 
 CREATE TABLE "Hotel Database"."Archive"
