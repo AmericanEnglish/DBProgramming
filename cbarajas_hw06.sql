@@ -33,6 +33,10 @@ CREATE TABLE "Hotel Database"."Archive"
         ON UPDATE NO ACTION ON DELETE NO ACTION
 
 );
+  OIDS=FALSE
+);
+ALTER TABLE "Hotel Database"."Archive"
+    OWNER TO postgres;
 -- 7.13
 
 -- 7.14
