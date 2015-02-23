@@ -33,6 +33,30 @@ WITH (
 );
 ALTER TABLE "Hotel Database"."Room"
     OWNER TO postgres;
+
+
+CREATE TABLE "Hotel Database"."Booking"
+(
+    "hotelNo" integer NOT NULL
+    "guestNo" integer NOT NULL
+    "dateFrom" date NOT NULL
+    "dateTo" date
+    "roomNo" integer
+    CONSTRAINT "Booking P Key" PRIMARY KEY ("hotelNo", "guestNo", "dateTo"),
+    CONSTRAINT "Booking F Key" FOREIGN KEY ("hotelNo", "roomNo")
+        REFERENCES "Hotel Database"."Room" ("hotelNo", "roomNo")
+        ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT "Booking F Key guestNo" FOREIGN KEY ("guestNo")
+        REFERENCES  "Hotel Database"."Guest" ("guestNo")
+        ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT "Date validity" CHECK ("dateTo" > date('today') AND "dateFrom" > date('today')),
+    -- CONSTRAINT "No double Booking" CHECK ()
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE "Hotel Database"."Booking"
+    OWNER TO postgres;
 -- 7.12 (include your INSERT/DELETE statements)
 
 CREATE TABLE "Hotel Database"."Archive"
@@ -56,6 +80,10 @@ CREATE TABLE "Hotel Database"."Archive"
 ALTER TABLE "Hotel Database"."Archive"
     OWNER TO postgres;
 -- 7.13
+CREATE VIEW "PresentGuests" 
+    AS SELECT "hotelName", "guestName" FROM "Hote Database"."Booking"
+        INNER JOIN "Hotel Database"."Guest" ON "Booking"."guestNo" = "Guest"."guestNo"
+        INNER JOIN "Hotel Database"."Hotel" ON "Booking"."hotelNo" = "Hotel"."hotelNo"
 
 -- 7.14
 
