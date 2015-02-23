@@ -13,3 +13,11 @@ INSERT INTO "Hotel Database"."Guest" VALUES
 (4, 'Guest D', 'Address 4'),
 (5, 'Guest E', 'Address 5'),
 (6, 'Guest F', 'Address 6');
+
+INSERT INTO "Hotel Database"."Room" VALUES
+(1, 1, 'Single', 20),
+(2, 1, 'Double', 30),
+(3, 1, 'Family', 50),
+(1, 2, 'Single', 20),
+(2, 2, 'Double', 30),
+(3, 2, 'Family', 50);
