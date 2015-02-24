@@ -25,3 +25,9 @@ INSERT INTO room VALUES
 (1, 2, 'Single', 20),
 (2, 2, 'Double', 30),
 (3, 2, 'Family', 50);
+
+DROP TABLE booking;
+DROP TABLE archive;
+DROP TABLE guest;
+DROP TABLE room;
+DROP TABLE hotel;

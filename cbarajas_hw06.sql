@@ -45,13 +45,18 @@ CREATE TABLE booking
         REFERENCES  guest (guestNo),
     CHECK (dateTo > DATE('today') AND dateFrom > DATE('today'))
 );
--- SELECT *
--- FROM "Booking"
--- WHERE roomno = 1 AND hotelno = 1 
--- AND
--- (('Dec-10-2015'BETWEEN datefrom AND dateto)
--- OR
--- ('Dec-1-2015' BETWEEN datefrom AND dateto));
+    -- CHECK( NOT EXISTS (
+    --     SELECT *
+    --     FROM "Booking"
+    --         WHERE roomno = 1 
+    --         AND hotelno = 1 
+    --         AND (
+    --             ('Dec-10-2015'BETWEEN datefrom AND dateto)
+    --             OR
+    --             ('Dec-1-2015' BETWEEN datefrom AND dateto)
+    --             )
+    --         )
+    -- );
 
 
 -- 7.12 (include your INSERT/DELETE statements)
@@ -72,6 +77,7 @@ INSERT INTO archive
 );
 DELETE hotelNo, guestNo, dateFrom, dateTo
 -- 7.13
+
 CREATE VIEW PresentGuests
     AS SELECT hotelName, guestName FROM booking
         INNER JOIN guest ON booking.guestNo = guest.guestNo
