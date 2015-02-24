@@ -87,16 +87,24 @@ CREATE VIEW presentguests
 
 -- 7.14
 CREATE VIEW grosvenorguests
-    AS SELECT hotelName, hotel.hotelno, guest.guestNo, allbookings.dateFrom, allbookings.dateTo FROM  
+    AS SELECT hotelName, allbookings.roomNo, guest.guestNo, allbookings.dateFrom, allbookings.dateTo FROM  
     (SELECT * FROM booking UNION SELECT * FROM archive) AS allbookings 
         INNER JOIN guest ON allbookings.guestNo = guest.guestNo
         INNER JOIN hotel ON allbookings.hotelno = hotel.hotelno
-        INNER JOIN room  ON allbookings.roomno =  room.roomno
     WHERE hotelname = 'Grosvenor';
 -- 7.15
-
+GRANT ALL PRIVILEGES
+ON presentguests, grosvenorguests
+TO (Manager, Director);
 -- 7.16
+GRANT SELECT
+ON presentguests, grosvenorguests
+TO Accounts;
 
+REVOKE SELECT
+ON presentguests, grosvenorguests
+FROM Accounts;
 -- 7.17 (2 points)
-
+    --a.) Valid, pulls the hotelno from hotel and then the count value from the select statement (which targets the booking table)
+    --b.)
 -- Turn in a SQL file with DDL/DML for the assignment. Test your queries using PostgreSQL.
