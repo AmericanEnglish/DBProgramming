@@ -75,7 +75,9 @@ INSERT INTO archive
 	FROM booking
 	WHERE dateFrom < 'Jan-01-2013'
 );
-DELETE hotelNo, guestNo, dateFrom, dateTo
+DELETE FROM booking
+    WHERE datefrom < 'Jan-01-2013';
+
 -- 7.13
 
 CREATE VIEW presentguests
@@ -87,9 +89,9 @@ CREATE VIEW presentguests
 CREATE VIEW grosvenorguests
     AS SELECT hotelName, hotel.hotelno, guest.guestNo, allbookings.dateFrom, allbookings.dateTo FROM  
     (SELECT * FROM booking UNION SELECT * FROM archive) AS allbookings 
-        INNER JOIN guest ON guest.guestNo = allbookings.guestNo
-        INNER JOIN hotel ON hotel.hotelno = allbookings.hotelno
-        INNER JOIN room ON room.roomno = allbookings.roomno
+        INNER JOIN guest ON allbookings.guestNo = guest.guestNo
+        INNER JOIN hotel ON allbookings.hotelno = hotel.hotelno
+        INNER JOIN room  ON allbookings.roomno =  room.roomno
     WHERE hotelname = 'Grosvenor';
 -- 7.15
 
