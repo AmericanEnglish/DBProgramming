@@ -78,13 +78,19 @@ INSERT INTO archive
 DELETE hotelNo, guestNo, dateFrom, dateTo
 -- 7.13
 
-CREATE VIEW PresentGuests
+CREATE VIEW presentguests
     AS SELECT hotelName, guestName FROM booking
         INNER JOIN guest ON booking.guestNo = guest.guestNo
         INNER JOIN hotel ON booking.hotelNo = hotel.hotelNo;
 
 -- 7.14
-
+CREATE VIEW grosvenorguests
+    AS SELECT hotelName, hotel.hotelno, guest.guestNo, allbookings.dateFrom, allbookings.dateTo FROM  
+    (SELECT * FROM booking UNION SELECT * FROM archive) AS allbookings 
+        INNER JOIN guest ON guest.guestNo = allbookings.guestNo
+        INNER JOIN hotel ON hotel.hotelno = allbookings.hotelno
+        INNER JOIN room ON room.roomno = allbookings.roomno
+    WHERE hotelname = 'Grosvenor';
 -- 7.15
 
 -- 7.16
