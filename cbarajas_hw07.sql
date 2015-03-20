@@ -22,7 +22,7 @@ ORDER BY price;
 -- a.  price of all double rooms greater than 100 euro
 CREATE TRIGGER doubles_under_100
     BEFORE INSERT ON room
-    REFERENCE NEW AS new_room
+    REFERENCING NEW AS new_room
     BEGIN
         IF new_room.type = 'Double' AND new_room.price < money(100)
             RAISE EXCEPTION 'Doubles must not be less than 100 euros'
@@ -32,7 +32,7 @@ CREATE TRIGGER doubles_under_100
 -- c.  A booking cannot be for a hotel room that is already booked for any of the specified dates
 CREATE TRIGGER booking_check
     BEFORE INSERT ON booking
-    REFERENCE NEW AS new_booking
+    REFERENCING NEW AS new_booking
     BEGIN
         IF EXISTS (
             SELECT *
@@ -52,7 +52,7 @@ CREATE TRIGGER booking_check
 -- e. maintain an audit table with names and addresses of all guests who make bookings for hotels in london. No duplicate guests.
 CREATE TRIGGER audit_insert
     AFTER INSERT ON guests
-    REFERENCE NEW AS new_guest
+    REFERENCING NEW AS new_guest
     BEGIN
         IF new_guest NOT IN (SELECT * FROM audit_table)
             INSERT INTO audit_table VALUES (new_guest)
