@@ -24,7 +24,7 @@ CREATE TRIGGER doubles_under_100
     BEFORE INSERT ON room
     REFERENCE NEW AS new_room
     BEGIN
-        IF new.type = 'Double' AND new.price < money(100)
+        IF new_room.type = 'Double' AND new_room.price < money(100)
             RAISE EXCEPTION 'Doubles must not be less than 100 euros'
         END IF
     END;
@@ -36,7 +36,7 @@ CREATE TRIGGER booking_check
     BEGIN
         IF EXISTS (
             SELECT *
-            FROM "Booking"
+            FROM booking
             WHERE roomno = new_booking.roomno 
                 AND hotelno = new_booking.hotelno
                 AND (
@@ -49,3 +49,13 @@ CREATE TRIGGER booking_check
         END IF
     END;
 
+-- e. maintain an audit table with names and addresses of all guests who make bookings for hotels in london. No duplicate guests.
+CREATE TRIGGER audit_insert
+    AFTER INSERT ON guests
+    REFERENCE NEW AS new_guest
+    BEGIN
+        IF new_guest NOT IN (SELECT * FROM audit_table)
+            INSERT INTO audit_table VALUES (new_guest)
+        END IF
+    END;
+            
