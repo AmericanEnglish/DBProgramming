@@ -16,8 +16,17 @@ FROM room
     INNER JOIN hotel ON room.hotelNo = hotel.hotelNo
 WHERE price < money(40) 
     AND (type = 'Double' OR type = 'Family')
-ORDER BY price
+ORDER BY price;
 
 -- (2 points each) Complete exercises 8.11 a, c, e. create triggers for
 -- a.  price of all double rooms greater than 100 euro
+CREATE TRIGGER doubles_under_100
+    BEFORE INSERT ON room
+    REFERENCE NEW AS new
+    BEGIN
+        IF type = 'Double' AND price < money(100)
+            RAISE EXCEPTION 'Doubles must not be less than 100 euros'
+        END IF
+    END;
+
 -- c. 
