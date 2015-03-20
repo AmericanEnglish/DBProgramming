@@ -22,11 +22,30 @@ ORDER BY price;
 -- a.  price of all double rooms greater than 100 euro
 CREATE TRIGGER doubles_under_100
     BEFORE INSERT ON room
-    REFERENCE NEW AS new
+    REFERENCE NEW AS new_room
     BEGIN
         IF new.type = 'Double' AND new.price < money(100)
             RAISE EXCEPTION 'Doubles must not be less than 100 euros'
         END IF
     END;
 
--- c. 
+-- c.  A booking cannot be for a hotel room that is already booked for any of the specified dates
+CREATE TRIGGER booking_check
+    BEFORE INSERT ON booking
+    REFERENCE NEW AS new_booking
+    BEGIN
+        IF EXISTS (
+            SELECT *
+            FROM "Booking"
+            WHERE roomno = new_booking.roomno 
+                AND hotelno = new_booking.hotelno
+                AND (
+                    (new_booking.dateto BETWEEN datefrom AND dateto)
+                    OR
+                    (new_booking.datefrom BETWEEN datefrom AND dateto)
+                    )
+            )
+            RAISE EXCEPTION 'Room cannot be double booked'
+        END IF
+    END;
+
