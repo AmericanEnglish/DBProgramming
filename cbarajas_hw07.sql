@@ -24,7 +24,7 @@ CREATE TRIGGER doubles_under_100
     BEFORE INSERT ON room
     REFERENCE NEW AS new
     BEGIN
-        IF type = 'Double' AND price < money(100)
+        IF new.type = 'Double' AND new.price < money(100)
             RAISE EXCEPTION 'Doubles must not be less than 100 euros'
         END IF
     END;
