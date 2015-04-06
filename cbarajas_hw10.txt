@@ -1,0 +1,68 @@
+14.15
+3nf
+
+staff relation
+staff, dentistname
+
+patient relation
+patNo, patName
+
+appointments
+staffNo, patNo,appointmentDT, surgeryNo
+
+-15.7
+You can say that surgeryNo is functionally dependant on the dentists because it is a reasonable assumption that some dentists specialize in certain surgeries.
+
+surgery 
+staffNo, surgeryNo
+
+Appointments
+staffNo, patName, appointmentDateTime, surgeryNo
+
+14.16
+contractors
+NIN, eName
+
+contracts
+contractNo, hNo, hLoc
+
+hours
+NIN,contractNo,hours
+
+-15.8
+You could actually break down contracts to say that the hotel location is functionally dependant on the hotel number so you would one additional table and a modified table like below
+
+contracts
+contractNo, hNo
+
+hotels
+hotelNo, hLoc
+
+-15.9
+a.)
+That table can be split up into two relations because there are several duplicate values in EVERY column.You can say that in the original relation that wardname can't possibly be a candidate key. and that ward name depends on both patientname and staffname.
+
+
+b.)
+Updating a patient name wouldn't exactly update all of them or if you wanted to change out a doctor in the ward you run the risk of change more than one doctor because of how wardname is structured. Splitting them up allows you to update, delete, and insert people without having to worry about these anomalies.
+
+c.)
+wardName, patientName
+wardName, staffName
+
+First you split the relation into two and assure that wardName is in both relations. Then you just tag the extra attributes into each relation as seen above. 
+15.10
+a.)
+There are a couple of duplicate values such as hospital name and supplier number as well as supplies names'.
+
+b.)
+You'd break this relation into 3 relations. You'd first break it into:
+hospitalitems
+itemDescription, hospitalName
+
+Then into hospitalNames and supplierNo
+hospitalSuppliers
+hospitalName, supplierNo
+
+Then you would make sure you have a list of all items that suppliers supply
+supplierNo, itemDescriptions
