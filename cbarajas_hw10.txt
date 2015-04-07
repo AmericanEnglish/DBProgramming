@@ -51,9 +51,10 @@ wardName, patientName
 wardName, staffName
 
 First you split the relation into two and assure that wardName is in both relations. Then you just tag the extra attributes into each relation as seen above. 
+
 15.10
 a.)
-There are a couple of duplicate values such as hospital name and supplier number as well as supplies names'.
+There are a couple of duplicate values such as hospital name and supplier number as well as supplies names'. It also seems that all of the values are dependant on each other so changing any of them could start to cause some anomalys.
 
 b.)
 You'd break this relation into 3 relations. You'd first break it into:
