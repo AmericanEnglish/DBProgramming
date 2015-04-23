@@ -112,3 +112,150 @@ CREATE TABLE newspaper
     FOREIGN KEY (property_no, room_no)
         REFERENCES for_rent (no, room_no)
 );
+
+-- 18.9
+CREATE TABLE students
+(
+    banner_no INTEGER,
+    first_name VARCHAR,
+    last_name VARCHAR,
+    address VARCHAR,
+    phone_no VARCHAR,
+    email VARCHAR,
+    DOB DATE,
+    gender VARCHAR[6],
+    class VARCHAR[9],
+    nationality VARCHAR,
+    needs VARCHAR,
+    comments VARCHAR,
+    status BOOLEAN,
+    major_id INTEGER,
+    minor_id INTEGER,
+    residence_name VARCHAR,
+    room_no,
+    PRIMARY KEY (first_name, last_name, address),
+    FOREIGN KEY (residence_name, room_no)
+        REFERENCES residence (name, room_no)
+);
+
+CREATE TABLE residences
+(
+    name VARCHAR,
+    address VARCHAR,
+    telephone VARCHAR,
+    room_no INTEGER,
+    manager INTEGER,
+    PRIMARY KEY (name, room_no),
+    FOREIGN KEY (manager)
+        REFERENCES students (banner_no)
+);
+
+CREATE TABLE leases
+(
+    no INTEGER,
+    duration DATE,
+    first_name VARCHAR,
+    last_name VARCHAR,
+    banner_no INTEGER,
+    place_no INTEGER,
+    room_no INTEGER,
+    address VARCHAR,
+    start_date DATE,
+    end_date DATE,
+    PRIMARY KEY (no)
+    FOREIGN KEY (banner_no, first_name, last_name),
+        REFERENCES students (banner_no, first_name, last_name)
+);
+
+CREATE TABLE invoices
+(
+    no INTEGER,
+    lease_no INTEGER,
+    semester VARCHAR,
+    payment_due MONEY,
+    payment_id INTEGER,
+    first_name VARCHAR,
+    last_name VARCHAR,
+    banner_no INTEGER,
+    place_no INTEGER,
+    room_no INTEGER
+    address VARCHAR,
+    PRIMARY KEY (no)
+    FOREIGN KEY (banner_no, first_name, last_name)
+        REFERENCES students (banner_no, first_name, last_name)
+    FOREIGN KEY (lease_no)
+        REFERENCES lease (no place_no)
+    FOREIGN KEY (room_no, address)
+        REFERENCES residences (room_no, address)
+    FOREIGN KEY (payment_id, payment_due)
+        REFERENCES payments (id, due)
+);
+
+CREATE TABLE payments
+(
+    id INTEGER,
+    due MONEY,
+    paid BOOLEAN,
+    invoice_no INTEGER,
+    PRIMARY KEY (id)
+    FOREIGN KEY (invoice_no)
+        REFERENCES invoices (no)
+);
+
+CREATE TABLE inspections
+(
+    staff_name VARCHAR,
+    inspection_date DATE,
+    satifactory BOOLEAN,
+    comments VARCHAR,
+    PRIMARY KEY (staff_name, inspection_date, satifactory, comments)
+    FOREIGN KEY (staff_name)
+        REFERENCES staff
+);
+
+CREATE TABLE staff 
+(
+    no INTEGER,
+    first_name VARCHAR,
+    last_name VARCHAR,
+    email VARCHAR,
+    address VARCHAR,
+    dob DATE,
+    gender VARCHAR[6],
+    position VARCHAR,
+    location VARCHAR,
+    PRIMARY KEY no
+    FOREIGN KEY (location)
+        REFERENCES residences
+);
+
+CREATE TABLE Coures 
+(
+    course_no INTEGER, 
+    course_name VARCHAR, 
+    course_year INTEGER, 
+    course_instructor VARCHAR, 
+    instructor_no INTEGER, 
+    email VARCHAR, 
+    room_no INTEGER, 
+    department_name VARCHAR,
+    PRIMARY KEY (course_no),
+    FOREIGN KEY (instructor_no, course_instructor)
+        REFERENCES staff (no, first_name),
+    FOREIGN KEY (department_name)
+        REFERENCES department (name)
+);
+
+CREATE TABLE kin
+(
+    name VARCHAR,
+    relationship VARCHAR,
+    address VARCHAR,
+    telephone VARCHAR,
+    kin_to VARCHAR,
+    PRIMARY KEY (name, relationship, kin_to)
+    FOREIGN KEY (kin_to)
+        REFERENCES students (name)
+);
+
+-- 18.11
