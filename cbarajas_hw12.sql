@@ -259,3 +259,71 @@ CREATE TABLE kin
 );
 
 -- 18.11
+CREATE TABLE Staff 
+(
+    no INTEGER, 
+    first_name VARCHAR, 
+    last_name VARCHAR, 
+    position VARCHAR,
+    PRIMARY KEY (no)
+);
+
+CREATE TABLE Clients 
+(
+    no INTEGER, 
+    first_name VARCHAR, 
+    last_name VARCHAR, 
+    address VARCHAR,
+    PRIMARY KEY (no)
+);
+
+CREATE TABLE Interviews 
+(
+    staff_no INTEGER, 
+    client_no INTEGER, 
+    on_date DATE,
+    PRIMARY KEY (staff_no, client_no),
+    FOREIGN KEY (staff_no),
+        REFERENCES Staff
+    FOREIGN KEY (client_no)
+        REFERENCES Clients
+);
+
+CREATE TABLE Lessons 
+(
+    staff_no INTEGER, 
+    client_no INTEGER, 
+    on_date DATE, 
+    fee MONEY, 
+    car_no INTEGER, 
+    mileage NUMBER
+    PRIMARY KEY (staff_no, client_no),
+    FOREIGN KEY (staff_no)
+        REFERENCES Staff,
+    FOREIGN KEY (client_no)
+        REFERENCES Clients,
+    FOREIGN KEY (car_no)
+        REFERENCES Cars
+);
+
+CREATE TABLE Tests 
+(
+    staff_no INTEGER, 
+    client_no INTEGER, 
+    on_date DATE, 
+    comments VARCHAR,
+    PRIMARY KEY (starr_no, client_no, on_date),
+    FOREIGN KEY (staff_no)
+        REFERENCES Clients,
+    FOREIGN KEY (client_no)
+        REFERENCES Staff
+);
+
+CREATE TABLE  Cars 
+(
+    car_no INTEGER, 
+    name VARCHAR, 
+    make INTEGER, 
+    model VARCHAR,
+    PRIMARY KEY (car_no)
+);
